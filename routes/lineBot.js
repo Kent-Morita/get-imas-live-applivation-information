@@ -33,11 +33,10 @@ async function getWaitingTime(name) {
     let replyMessage = "";
     console.log('sleepy!');
     // 一旦、tableを全部引っ張ってくる
-    const object = fetchResult.$('table').each((index) => 
+    const object = fetchResult.$('table').each(function (index) 
     {
         const  table = fetchResult.$(this);
-        console.log(table);
-        console.log(index + ':' + table.find('tbody').text().length)
+        console.log(index + ':' + table.text());
     });
     let tables = fetchResult.$('table').text();
     console.log(tables);
