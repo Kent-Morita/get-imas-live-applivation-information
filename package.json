@@ -1,0 +1,17 @@
+{
+  "name": "get_imas_ticket_information",
+  "version": "1.0.0",
+  "description": "アソビストアからアイドルマスターシリーズの先行申込情報を取得し、LINEで表示するためのものです",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cheerio-httpcli": "^0.7.4",
+    "express": "^4.17.1",
+    "linebot": "^1.5.3"
+  }
+}
