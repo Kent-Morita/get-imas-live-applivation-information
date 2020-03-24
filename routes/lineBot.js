@@ -39,8 +39,13 @@ async function getWaitingTime(name) {
         {
             table.find('tr').each(function(index)
             {
-                console.log(fetchResult.$(this).text());
-                replyMessage += fetchResult.$(this).text();
+                const text = fetchResult.$(this).text()
+                if (text.includes('公演名' || '公演日時' || '会場' || '受付期間'))
+                {
+                    replyMessage += fetchResult.$(this).text();
+                    replyMessage += '\n';
+                }
+                
             });
         }
 
@@ -77,7 +82,7 @@ bot.on('message', async (event) => {
         }else if(event.message.text.indexOf('デレ') !== -1){
             replyMessage = await getWaitingTime("CINDERELLA GIRLS");
         }else if(event.message.text.indexOf('ミリ') !== -1){
-            replyMessage = await getWaitingTime("MillionStars");
+            replyMessage = await getWaitingTime("MILLION LIVE");
         }else if(event.message.text.indexOf('シャニ') !== -1){
             replyMessage = await getWaitingTime("SHINY COLORS");
         }else if(event.message.text.indexOf('SideM') !== -1){
