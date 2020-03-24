@@ -55,10 +55,10 @@ async function getWaitingTime(name) {
                     replyMessage += '\n';
 
                 }
-
-                replyMessages.push(replyMessage);
                 
             });
+            replyMessages.push(replyMessage);
+            console.log(replyMessages.length);
         }
 
     });
