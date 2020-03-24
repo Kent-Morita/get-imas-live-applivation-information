@@ -30,11 +30,12 @@ router.post('/', parser, (req, res, next) => {
 // アソビストアからスクレイピングしてくる関数
 async function getWaitingTime(name) {
     const fetchResult = await cheerio.fetch('https://asobistore.jp/event-ticket/List');
-    let replyMessage = "";
+    let replyMessages = [];
 
     // fetchした内容のうち、'table'の中身を一個ずつ取り出してreplyMessageに追加する
     fetchResult.$('table').each(function (index) 
     {
+        let replyMessage = '';
         const  table = fetchResult.$(this);
         
         // 引数が含まれていなかったら飛ばす
@@ -54,6 +55,8 @@ async function getWaitingTime(name) {
                     replyMessage += '\n';
 
                 }
+
+                replyMessages.push(replyMessage);
                 
             });
         }
@@ -83,31 +86,34 @@ bot.on('message', async (event) => {
     if(event.message.type !== 'text') {
         return;
     }
-    let replyMessage;
+    let replyMessages = [];
     try 
     {
         if(event.message.text.indexOf('AS') !== -1) {
-            replyMessage = await getWaitingTime("765AllStars");
+            replyMessages = await getWaitingTime("765AllStars");
         }else if(event.message.text.indexOf('デレ') !== -1){
-            replyMessage = await getWaitingTime("CINDERELLA GIRLS");
+            replyMessages = await getWaitingTime("CINDERELLA GIRLS");
         }else if(event.message.text.indexOf('ミリ') !== -1){
-            replyMessage = await getWaitingTime("MILLION LIVE");
+            replyMessages = await getWaitingTime("MILLION LIVE");
         }else if(event.message.text.indexOf('シャニ') !== -1){
-            replyMessage = await getWaitingTime("SHINY COLORS");
+            replyMessages = await getWaitingTime("SHINY COLORS");
         }else if(event.message.text.indexOf('SideM') !== -1){
-            replyMessage = await getWaitingTime("SideM");
+            replyMessages = await getWaitingTime("SideM");
         }else if(event.message.text.indexOf('指定なし') !== -1){
-            replyMessage = await getWaitingTime("THE IDOLM@STER");
+            replyMessages = await getWaitingTime("THE IDOLM@STER");
         }
         else {
-            replyMessage = "先行申込情報を知りたいコンテンツを選んでください";
+            replyMessages = ["先行申込情報を知りたいコンテンツを選んでください"];
         }
     }catch(err)
     {
         console.log('an error occured!');
         console.log(err);
     }
-    event.reply(replyMessage);
+    
+    replyMessages.forEach(replyMessage => {
+        event.reply(replyMessage);
+    });
 });
 
 
