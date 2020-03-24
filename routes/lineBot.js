@@ -43,13 +43,15 @@ async function getWaitingTime(name) {
             table.find('tr').each(function(index)
             {
                 const tr = fetchResult.$(this);
+                const th = tr.find('th');
+                const td = tr.find('td');
                 
                 // 表示したいtrだけ表示する（
-                if (tr.find('th').includes('公演名')　|| tr.find('th').includes('公演日時') 
-                || tr.find('th').includes('チケット情報'))
+                if (th.text().includes('公演名')　|| th.text().includes('公演日時') 
+                || th.text().includes('チケット情報'))
                 {
-                    replyMessage += tr.text();
-                    replyMessage += '\n' + '\n';
+                    replyMessage += ` ■${th.text()} : ${td.text()} \n`
+                    replyMessage += '\n';
 
                 }
                 
