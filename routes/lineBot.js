@@ -37,9 +37,10 @@ async function getWaitingTime(name) {
         const  table = fetchResult.$(this);
         if (table.text().includes(name))
         {
-            table.$('tr').each(function(index)
+            table.find('tr').each(function(index)
             {
-                replyMessage += fetchResult.$(this)
+                console.log(fetchResult.$(this).text());
+                replyMessage += fetchResult.$(this).text();
             });
         }
 
@@ -48,7 +49,7 @@ async function getWaitingTime(name) {
     {
         replyMessage += "先行申込情報が見つかりませんでした。シリーズの指定なしで試してみてください。"
     }
-    
+
     return replyMessage;
 }
 
