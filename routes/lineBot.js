@@ -62,9 +62,9 @@ async function getWaitingTime(name) {
         }
 
     });
-    if (replyMessage.length === 0)
+    if (replyMessages.length === 0)
     {
-        replyMessage += "先行申込情報が見つかりませんでした。シリーズの指定なしで試してみてください。"
+        replyMessages.push("先行申込情報が見つかりませんでした。シリーズの指定なしで試してみてください。");
     }
 
     return replyMessage;
@@ -110,7 +110,7 @@ bot.on('message', async (event) => {
         console.log('an error occured!');
         console.log(err);
     }
-    
+
     replyMessages.forEach(replyMessage => {
         event.reply(replyMessage);
     });
