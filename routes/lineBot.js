@@ -45,11 +45,12 @@ async function getWaitingTime(name) {
                 const text = fetchResult.$(this).text();
                 
                 // 表示したいtrだけ表示する（
-                if (text.includes('公演名')　|| text.includes('公演日時') 
-                || text.includes('会場')　|| text.includes('受付期間'))
+                if (text.find('th').includes('公演名')　|| text.find('th').includes('公演日時') 
+                || text.find('th').includes('チケット情報'))
                 {
-                    replyMessage += fetchResult.$(this).text();
-                    replyMessage += '\n';
+                    replyMessage += text;
+                    replyMessage += '\n' + '\n';
+
                 }
                 
             });
