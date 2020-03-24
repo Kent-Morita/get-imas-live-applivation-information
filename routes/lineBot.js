@@ -67,7 +67,7 @@ async function getWaitingTime(name) {
         replyMessages.push("先行申込情報が見つかりませんでした。シリーズの指定なしで試してみてください。");
     }
 
-    return replyMessage;
+    return replyMessages;
 }
 
 // 友達追加
