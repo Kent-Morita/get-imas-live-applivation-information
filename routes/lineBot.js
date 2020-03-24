@@ -111,9 +111,7 @@ bot.on('message', async (event) => {
         console.log(err);
     }
 
-    replyMessages.forEach(replyMessage => {
-        event.reply(replyMessage);
-    });
+    event.reply(replyMessages);
 });
 
 
