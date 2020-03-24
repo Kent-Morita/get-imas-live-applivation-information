@@ -42,11 +42,11 @@ async function getWaitingTime(name) {
         {
             table.find('tr').each(function(index)
             {
-                const text = fetchResult.$(this).text()
+                const text = fetchResult.$(this).text();
                 
                 // 表示したいtrだけ表示する（
-                if (text.includes('公演名')　|| text.incluedes('公演日時') 
-                || text.incluedes('会場')　|| text.incluedes('受付期間'))
+                if (text.includes('公演名')　|| text.includes('公演日時') 
+                || text.includes('会場')　|| text.includes('受付期間'))
                 {
                     replyMessage += fetchResult.$(this).text();
                     replyMessage += '\n';
