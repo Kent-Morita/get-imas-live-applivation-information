@@ -31,17 +31,24 @@ router.post('/', parser, (req, res, next) => {
 async function getWaitingTime(name) {
     const fetchResult = await cheerio.fetch('https://asobistore.jp/event-ticket/List');
     let replyMessage = "";
-    console.log('sleepy!');
-    // 一旦、tableを全部引っ張ってくる
-    const object = fetchResult.$('table').each(function (index) 
+
+    fetchResult.$('table').each(function (index) 
     {
         const  table = fetchResult.$(this);
-        console.log(index + ':' + table.text());
-    });
-    let tables = fetchResult.$('table').text();
-    console.log(tables);
-    replyMessage += tables;
+        if (table.text().includes(name))
+        {
+            table.$('tr').each(function(index)
+            {
+                replyMessage += fetchResult.$(this)
+            });
+        }
 
+    });
+    if (replyMessage.length === 0)
+    {
+        replyMessage += "先行申込情報が見つかりませんでした。シリーズの指定なしで試してみてください。"
+    }
+    
     return replyMessage;
 }
 
@@ -67,15 +74,15 @@ bot.on('message', async (event) => {
         if(event.message.text.indexOf('AS') !== -1) {
             replyMessage = await getWaitingTime("765AllStars");
         }else if(event.message.text.indexOf('デレ') !== -1){
-            replyMessage = await getWaitingTime("CinderellaGirs");
+            replyMessage = await getWaitingTime("CINDERELLA GIRLS");
         }else if(event.message.text.indexOf('ミリ') !== -1){
             replyMessage = await getWaitingTime("MillionStars");
         }else if(event.message.text.indexOf('シャニ') !== -1){
-            replyMessage = await getWaitingTime("ShinyColors");
+            replyMessage = await getWaitingTime("SHINY COLORS");
         }else if(event.message.text.indexOf('SideM') !== -1){
             replyMessage = await getWaitingTime("SideM");
         }else if(event.message.text.indexOf('指定なし') !== -1){
-            replyMessage = await getWaitingTime("AllIM@S");
+            replyMessage = await getWaitingTime("THE IDOLM@STER");
         }
         else {
             replyMessage = "先行申込情報を知りたいコンテンツを選んでください";
