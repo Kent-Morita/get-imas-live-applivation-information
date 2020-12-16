@@ -28,7 +28,7 @@ router.post('/', parser, (req, res, next) => {
 });
 
 // アソビストアからスクレイピングしてくる関数
-async function getWaitingTime(name) {
+async function getTicketInformation(name) {
     const fetchResult = await cheerio.fetch('https://asobistore.jp/event-ticket/List');
     let replyMessages = [];
 
@@ -90,17 +90,17 @@ bot.on('message', async (event) => {
     try 
     {
         if(event.message.text.indexOf('AS') !== -1) {
-            replyMessages = await getWaitingTime("765AllStars");
+            replyMessages = await getTicketInformation("765AllStars");
         }else if(event.message.text.indexOf('デレ') !== -1){
-            replyMessages = await getWaitingTime("CINDERELLA GIRLS");
+            replyMessages = await getTicketInformation("CINDERELLA GIRLS");
         }else if(event.message.text.indexOf('ミリ') !== -1){
-            replyMessages = await getWaitingTime("MILLION LIVE");
+            replyMessages = await getTicketInformation("MILLION LIVE");
         }else if(event.message.text.indexOf('シャニ') !== -1){
-            replyMessages = await getWaitingTime("SHINY COLORS");
+            replyMessages = await getTicketInformation("SHINY COLORS");
         }else if(event.message.text.indexOf('SideM') !== -1){
-            replyMessages = await getWaitingTime("SideM");
+            replyMessages = await getTicketInformation("SideM");
         }else if(event.message.text.indexOf('指定なし') !== -1){
-            replyMessages = await getWaitingTime("THE IDOLM@STER");
+            replyMessages = await getTicketInformation("THE IDOLM@STER");
         }
         else {
             replyMessages = ["先行申込情報を知りたいコンテンツを選んでください"];
